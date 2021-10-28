@@ -50,6 +50,52 @@ router.post('/registro', (req,res) => {
     })
 });
 
+router.put('/id', (req,res) => {
+    let actualizarRegistro = new RegistroSchema({
+        idRegistro: req.body.id,
+        tipoDocumentoRegistro: req.body.tipoDocumento,
+        numeroDocumentoRegistro: req.body.numeroDocumento,
+        nombresRegistro: req.body.nombres,
+        apellidosRegistro: req.body.apellidos,
+        direccionRegistro: req.body.direccion,
+        emailRegistro: req.body.email,
+        telefonoFijoRegistro: req.body.telefonoFijo,
+        telefonoCelularRegistro: req.body.telefonoCelular,
+        enlaceSitioWebRegistro: req.body.enlaceSitioWeb,
+        descripcionPerfilRegistro: req.body.descripcionPerfil
+    });
+
+    actualizarRegistro.save(function(err, datos){
+        if(err){
+            console.log(err);
+        }
+        res.send("Registro actualizado correctamente.")
+    })
+});
+
+router.delete('/id', (req,res) => {
+    let eliminarRegistro = new RegistroSchema({
+        idRegistro: req.body.id,
+        tipoDocumentoRegistro: req.body.tipoDocumento,
+        numeroDocumentoRegistro: req.body.numeroDocumento,
+        nombresRegistro: req.body.nombres,
+        apellidosRegistro: req.body.apellidos,
+        direccionRegistro: req.body.direccion,
+        emailRegistro: req.body.email,
+        telefonoFijoRegistro: req.body.telefonoFijo,
+        telefonoCelularRegistro: req.body.telefonoCelular,
+        enlaceSitioWebRegistro: req.body.enlaceSitioWeb,
+        descripcionPerfilRegistro: req.body.descripcionPerfil
+    });
+
+    eliminarRegistro.save(function(err, datos){
+        if(err){
+            console.log(err);
+        }
+        res.send("Registro eliminado correctamente.")
+    })
+});
+
 app.use(router);
 app.listen(3000, () => {
     console.log("Servidor corriendo en el puerto 3000")
