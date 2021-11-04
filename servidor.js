@@ -50,7 +50,47 @@ router.post('/registro', (req,res) => {
     })
 });
 
-router.put('/id', (req,res) => {
+
+
+//put para actualizar informacion
+router.put("/ActualizaPersona", (req, res) => {
+    RegistroSchema.findOneAndUpdate(
+        { numeroDocumentoRegistro: req.body.numeroDocumento },
+        {
+            $set: {
+                idRegistro: req.body.id,
+                tipoDocumentoRegistro: req.body.tipoDocumento,
+                numeroDocumentoRegistro: req.body.numeroDocumento,
+                nombresRegistro: req.body.nombres,
+                apellidosRegistro: req.body.apellidos,
+                direccionRegistro: req.body.direccion,
+                emailRegistro: req.body.email,
+                telefonoFijoRegistro: req.body.telefonoFijo,
+                telefonoCelularRegistro: req.body.telefonoCelular,
+                enlaceSitioWebRegistro: req.body.enlaceSitioWeb,
+                descripcionPerfilRegistro: req.body.descripcionPerfil
+            }
+        },
+        {
+            upsert: true
+        }
+    ).then(result => { res.json('Persona Actualizada') })
+        .catch(error => console.error(error))
+});
+
+//delete Borra informacion
+router.delete("/BorraPersona", (req, res) => {
+    RegistroSchema.deleteOne(
+        { numeroDocumentoRegistro: req.body.numeroDocumento }
+    )
+        .then(result => {
+            res.json('Persona borrada Satisfactoriamente')
+        })
+        .catch(error => console.error(error))
+});
+
+
+/*router.put('/id', (req,res) => {
     let actualizarRegistro = new RegistroSchema({
         idRegistro: req.body.id,
         tipoDocumentoRegistro: req.body.tipoDocumento,
@@ -94,7 +134,7 @@ router.delete('/id', (req,res) => {
         }
         res.send("Registro eliminado correctamente.")
     })
-});
+});*/
 
 app.use(router);
 app.listen(3000, () => {
